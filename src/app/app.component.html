@@ -1,0 +1,80 @@
+<!-- Your code here -->
+<div class="container">
+    <h1 id="title">Flight Booking</h1>
+<div class="search-bar"><form #contactForm="ngForm" >
+  <span>
+    <label for="source">Source</label>
+        <input type="text" id="source" name="source" placeholder="source" value='BLR' [(ngModel)]="source">
+      </span>
+     
+      <span>
+        <label for="destination">Destination</label>
+        <input type="text" id="destination" name="destination" value='DEL' placeholder="Destination" [(ngModel)]="destination">
+      </span>
+      <span>
+        <label for="when">When</label>
+        <input type="date" id="when" name="when" value='2021-02-01' placeholder="booking_date" [(ngModel)]="booking_date">
+      </span>
+
+      <span >
+        <button type="submit" id="search_flights" name="search_flights" (click)="onSearch(source,destination)">Search Flight</button>
+      </span>
+</form>
+</div>
+<div class="search-list search-bar" *ngIf="!available_flight && !booking_conf_frm_visible">
+<p>Search for a Flight!</p>
+
+</div>
+<div class="search-list"  *ngIf="available_flight && !booking_conf_frm_visible">
+<div class="search-flight details">
+<span class="icon"><img src="/assets/flight-icon.png"></span>
+<span class="details">
+    <h1>{{booking_date}}</h1>
+    <p>{{available_flight.company}}</p>
+</span>
+<span class="duration">
+<h1>{{available_flight.duration}} mins</h1>
+<p>{{source}}-{{destination}}</p>
+</span>
+<span class="price">
+<h1>{{available_flight.price | currency : '&#8377;'}}</h1>
+  <button type="submit" id="booknow_btn" (click)="booknow()">Booknow</button>
+</span>
+</div>
+</div>
+<div class="booknow-frm" *ngIf="booking_conf_frm_visible && !booking_conf_frm_submit">
+ <div class="container">
+     <div>
+<h1>Your Details</h1>
+<form #bookFrm="ngForm" (ngSubmit)="bookingConfirmed(name,email)" >
+    <div>
+        <input type="text" id="name" name="name" placeholder="Your Name" [(ngModel)]="name">
+        </div>
+       
+        <div>
+          
+          <input type="text" id="email" name="email" placeholder="Your Email" [(ngModel)]="email">
+        </div>
+        <div >
+            <button id="confirm_booking_btn" type="submit">Confirm Booking</button>
+          </div>
+  
+        <div >
+          <button type="submit">Cancel</button>
+        </div>
+  </form>
+</div>
+</div>
+</div>
+<div class="booknow-frm" *ngIf="booking_conf_frm_submit">
+    <div class="container">
+        <div>
+     <h1>Booking Confirmed</h1>
+        </div>
+        <div >
+            <button type="submit" (click)="Cancel()">Cancel</button>
+          </div>
+    </div>
+</div>
+
+</div>
